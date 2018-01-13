@@ -1,0 +1,18 @@
+select {
+    width: 60%;
+    margin: auto;
+    background-color: rgba(0,0,0,0.3);
+    color: #bbb;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+}
+select:hover {
+    border: 2px solid #ad0000;
+}
+select:focus {
+    border: 2px solid #ad0000 !important;
+}
+.page-header h1 {
+    cursor: pointer;
+}
