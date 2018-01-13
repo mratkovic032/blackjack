@@ -13,6 +13,3 @@ select:hover {
 select:focus {
     border: 2px solid #ad0000 !important;
 }
-.page-header h1 {
-    cursor: pointer;
-}

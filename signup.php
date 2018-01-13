@@ -35,7 +35,7 @@ if (!isset($_SESSION['username'])) {
                             <?php
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'user') {
                                 echo "<div class='warning_div_sign_up'>\n";
-                                echo "<span class='warning'>that username already taken, please select different username</span>\n";                                
+                                echo "<span class='warning'>that username is already taken, please select different username</span>\n";                                
                                 echo "</div>\n";
                             }
                             ?>

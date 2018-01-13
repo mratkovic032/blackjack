@@ -24,7 +24,7 @@
             <div class="container">
                 <div class="row login">
                     <div class=" page-header text-center">
-                        <h1>BLACKJACK</h1>
+                        <h1 onclick="$(this).click(function() {window.location.href = '../index.php'; return false;});">BLACKJACK</h1>
                     </div>
                 </div>
                 <div class="row">

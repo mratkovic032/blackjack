@@ -22,6 +22,11 @@ body {
     background-repeat: no-repeat;    
     filter: grayscale(65%);
 }
+#logo_pic {
+    width: 50px;
+    height: 50px;
+    margin-top: -15px;
+}
 .login div:nth-child(1) {
     margin-bottom: 50px;    
 }
@@ -79,6 +84,7 @@ span.warning {
 .page-header > h1 {
     font-family: 'Vollkorn SC', serif;
     font-size: 55px;
+    cursor: pointer;
 }
 .play {
     margin-top: 20%;
@@ -94,9 +100,7 @@ span.warning {
 .dropdown-menu li {
     text-align: right;
 }
-#success_div,
-#success_registration_div,
-#logged_out_div {
+#success_div {
     margin-top: 20px;
     color: #0f0;
     text-align: center;
