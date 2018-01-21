@@ -107,10 +107,11 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="user_list.php">user list</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">your profile</a></li>
+                                <li><a href="profile.php">your profile</a></li>
                             </ul>
                         </li>
                         <li><a href="php/logout.php">log out</a></li>
@@ -122,7 +123,7 @@ if (!isset($_SESSION['username'])) {
             <div class="container">
                 <div class="row login">
                     <div class="page-header text-center">
-                        <h1 onclick="$(this).click(function() {window.location.href = 'index.php'; return false;});">BLACKJACK</h1>
+                        <h1 onclick="window.open('index.php', '_self');">BLACKJACK</h1>
                     </div>                    
                         <div class="col-md-4 col-md-offset-4 text-center">                            
                             <button class="play btn btn-block" >PLAY</button>

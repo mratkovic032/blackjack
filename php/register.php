@@ -1,7 +1,6 @@
 <?php 
 if (isset($_POST['submit'])) {
-    $db = new PDO('mysql:host=localhost;dbname=blackjack;charset=utf8', 'root', '');
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    require_once 'database_connection.php';
     
     $email = htmlspecialchars($_POST['email']);
     $username = htmlspecialchars($_POST['username']);
@@ -10,7 +9,7 @@ if (isset($_POST['submit'])) {
     $country = htmlspecialchars($_POST['country']);
     $birthday = htmlspecialchars($_POST['birthday']);
     $gender = htmlspecialchars($_POST['gender']);
-    $credit = 5000;
+    $credit = 10000;
     
     if ($password !== $password2) {
         die (header('Location: ../signup.php?msg=pass'));
