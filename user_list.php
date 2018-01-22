@@ -137,12 +137,12 @@ session_start();
                                         if ($res_relationship[0]->status == 0 && $res_relationship[0]->id_action_user == $_SESSION['id']) {
                                             echo "<td><a class='submit btn btn-default btn-xs disabled' href='#'>pending request</a></td>\n";
                                         } else if ($res_relationship[0]->status == 0 && $res_relationship[0]->id_action_user == $user->id) {
-                                            echo "<td><a class='submit btn btn-primary btn-xs' href='php/accept_friend.php?id=" . $user->id . "'>accept</a> <a class='submit btn btn-danger btn-xs' href='php/decline_friend.php?id=" . $user->id . "'>decline</a></td>\n";
+                                            echo "<td><a class='submit btn btn-success btn-xs' href='php/accept_friend.php?id=" . $user->id . "'>accept</a> <a class='submit btn btn-danger btn-xs' href='php/decline_friend.php?id=" . $user->id . "'>decline</a></td>\n";
                                         } else if ($res_relationship[0]->status == 1) {
                                             echo "<td><a class='submit btn btn-danger btn-xs' href='php/remove_friend.php?id=" . $user->id . "'>remove friend</a></td>\n";
                                         }
                                     } else {
-                                        echo "<td><a class='submit btn btn-success btn-xs' href='php/add_friend.php?id_user_1=" . $smaller ."&id_user_2=" . $bigger ."'>add friend</a></td>\n";
+                                        echo "<td><a class='submit btn btn-primary btn-xs' href='php/add_friend.php?id_user_1=" . $smaller ."&id_user_2=" . $bigger ."'>add friend</a></td>\n";
                                     }
                                     echo "</tr></a>\n";                                
                                 }
