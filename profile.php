@@ -29,32 +29,27 @@ session_start();
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="user_list.php">user list</a></li>
-                        <li class="dropdown">
-                            <?php 
-                            require_once 'php/database_connection.php';
-                            $prep_user = $db->prepare("SELECT notification FROM user_list WHERE username = ?;");
-                            $prep_user->execute([$_SESSION['username']]);
-                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
-                            
-                            if ($res_user[0]->notification > 0) {
-                                ?>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span>&nbsp;&nbsp; <sup style="color: #f00; font-size: 100%;"><?php echo $res_user[0]->notification ?></sup></a>                            
-                            <?php
-                            } else {
-                                ?>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span></a>                            
-                            <?php
-                            }
+                        <li><a href="user_list.php">user list</a></li>                       
+                        <?php 
+                        require_once 'php/database_connection.php';
+                        $prep_user = $db->prepare("SELECT notification FROM user_list WHERE username = ?;");
+                        $prep_user->execute([$_SESSION['username']]);
+                        $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
+
+                        if ($res_user[0]->notification > 0) {
                             ?>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="profile.php">your profile</a></li>
-                                <li><a href="notification.php">notifications</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="notification.php">friend requests &nbsp;&nbsp;<sup style="color: #f00; font-size: 100%;"><?php echo $res_user[0]->notification ?></sup></a></li>                            
+                        <?php
+                        } else {
+                            ?>
+                        <li><a href="notification.php">friend requests</a></li>                            
+                        <?php
+                        }
+                        ?>                        
+                        <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li> 
                         <li><a href="php/logout.php">log out</a></li>
                     </ul>
-                </div>                
+                </div>                 
             </div>
         </nav>
         <?php                
@@ -102,12 +97,19 @@ session_start();
                             } else {
                                 $smaller = min($_SESSION['id'], $_GET['id']);
                                 $bigger = max($_SESSION['id'], $_GET['id']);
-                                $prep_checking_friends = $db->prepare("SELECT * FROM relationship WHERE id_user_1 = ? AND id_user_2 = ? AND status = 1;");
+                                $prep_checking_friends = $db->prepare("SELECT * FROM relationship WHERE id_user_1 = ? AND id_user_2 = ?;");
                                 $prep_checking_friends->execute([$smaller, $bigger]);
                                 if ($prep_checking_friends->rowCount() > 0) {
-                                    echo "<a href='php/remove_friend.php?id=" . $_GET['id'] . "' class='btn btn-default play' style='width: 250px; margin-top: 30px;'>remove friend</a>\n";
+                                    $res_checking_friends = $prep_checking_friends->fetchAll(PDO::FETCH_OBJ);
+                                    if ($res_checking_friends[0]->status == 0 && $res_checking_friends[0]->id_action_user == $_SESSION['id']) {
+                                        echo "<a href='#' class='btn btn-default play disabled' style='width: 250px; margin-top: 30px;'>pending request</a>\n";
+                                    } else if ($res_checking_friends[0]->status == 0 && $res_checking_friends[0]->id_action_user == $_GET['id']) {
+                                        echo "<a href='php/accept_friend.php?id=" . $_GET['id'] . "' class='btn btn-default play' style='width: 250px; margin-top: 30px;'>accept friend</a>\n";
+                                    } else if ($res_checking_friends[0]->status == 1) {
+                                        echo "<a href='php/remove_friend.php?id=" . $_GET['id'] . "' class='btn btn-default play' style='width: 250px; margin-top: 30px;'>remove friend</a>\n";
+                                    }
                                 } else {
-                                    echo "<a href='php/add_friend.php?id_user_1=" . $smaller ."&id_user_2=" . $bigger ."' class='btn btn-default play' style='width: 250px; margin-top: 30px;'>Add friend</a>\n";                                
+                                    echo "<a href='php/add_friend.php?id_user_1=" . $smaller ."&id_user_2=" . $bigger ."' class='btn btn-default play' style='width: 250px; margin-top: 30px;'>add friend</a>\n";                                
                                 }
                             }
                             ?>                            
@@ -188,9 +190,9 @@ session_start();
                                 
                                 echo "<div style='margin: 10px; display: inline;'>\n";
                                 if ($res_friend_info[0]->picture_path != null) {
-                                    echo "<a href='profile.php?id=" . $res_friend_info[0]->id . "'><img src='" . $res_friend_info[0]->picture_path . "' class='img_prifile_xs profile_friend_list' data-toggle='tooltip' data-placement='top' title='" . $res_friend_info[0]->username . "'></a>\n";
+                                    echo "<a href='profile.php?id=" . $res_friend_info[0]->id . "'><img src='" . $res_friend_info[0]->picture_path . "' class='img_profile_xs profile_friend_list' data-toggle='tooltip' data-placement='top' title='" . $res_friend_info[0]->username . "'></a>\n";
                                 } else {
-                                    echo "<a href='profile.php?id=" . $res_friend_info[0]->id . "'><img src='images/profile_images/profile_blank.jpg' class='img_prifile_xs profile_friend_list' data-toggle='tooltip' data-placement='top' title='" . $res_friend_info[0]->username . "'></a>\n";
+                                    echo "<a href='profile.php?id=" . $res_friend_info[0]->id . "'><img src='images/profile_images/profile_blank.jpg' class='img_profile_xs profile_friend_list' data-toggle='tooltip' data-placement='top' title='" . $res_friend_info[0]->username . "'></a>\n";
                                 }                                                                
                                 echo "</div>\n";
                             }

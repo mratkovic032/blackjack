@@ -1,8 +1,5 @@
-<?php
+<?php 
 session_start();
-require_once 'php/database_connection.php';
-$prep_delete_notifications = $db->prepare("UPDATE user_list SET notification = 0 WHERE username = ?");
-$prep_delete_notifications->execute([$_SESSION['username']]);
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,15 +34,24 @@ $prep_delete_notifications->execute([$_SESSION['username']]);
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="user_list.php">user list</a></li>
-                        <li class="dropdown">                                                                                                                                                                        
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span></a>                            
-                            
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="profile.php">your profile</a></li>
-                                <li><a href="notification.php">notifications</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="user_list.php">user list</a></li>                       
+                        <?php 
+                        require_once 'php/database_connection.php';
+                        $prep_user = $db->prepare("SELECT notification FROM user_list WHERE username = ?;");
+                        $prep_user->execute([$_SESSION['username']]);
+                        $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
+
+                        if ($res_user[0]->notification > 0) {
+                            ?>
+                        <li><a href="notification.php">friend requests &nbsp;&nbsp;<sup style="color: #f00; font-size: 100%;"><?php echo $res_user[0]->notification ?></sup></a></li>                            
+                        <?php
+                        } else {
+                            ?>
+                        <li><a href="notification.php">friend requests</a></li>                            
+                        <?php
+                        }
+                        ?>                        
+                        <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li> 
                         <li><a href="php/logout.php">log out</a></li>
                     </ul>
                 </div>                
@@ -53,11 +59,56 @@ $prep_delete_notifications->execute([$_SESSION['username']]);
         </nav>
         <div class="wrapper">
             <div class="container">
-                <div class="row">
+                <div class="row" style="margin-bottom: 30px;">
                     <div class="page-header text-center">
                         <h1 onclick="window.open('index.php', '_self');">BLACKJACK</h1>
                     </div>                    
-                </div>                
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="user_table">                        
+                        <tbody>
+                        <?php         
+                        $prep_user_list = $db->prepare("SELECT * FROM user_list;");
+                        $prep_user_list->execute();
+                        $res_user_list = $prep_user_list->fetchAll(PDO::FETCH_OBJ);        
+                        
+                        if ($res_user[0]->notification > 0) {                        
+                            foreach ($res_user_list as $user) {
+                                if ($user->username != $_SESSION['username']) {
+                                    $smaller = min($_SESSION['id'], $user->id);                                
+                                    $bigger = max($_SESSION['id'], $user->id);
+                                    if ($_SESSION['id'] == $user->id) {
+                                        $id_user = $user->id;
+                                    } else {
+                                        $id_user = $user->id;
+                                    }
+
+                                    $query = "SELECT * FROM relationship WHERE id_user_1 = ? AND id_user_2 = ? AND status = 0 AND id_action_user = " . $id_user . ";";
+                                    $prep_relationship = $db->prepare($query);
+                                    $prep_relationship->execute([$smaller, $bigger]);
+
+                                    if ($prep_relationship->rowCount() > 0) {
+                                        $res_relationship = $prep_relationship->fetchAll(PDO::FETCH_OBJ);
+
+                                        echo "<tr>\n";
+                                        if ($user->picture_path != null) {
+                                            echo "<td style='border-bottom-width: 1px;'><img src='" . $user->picture_path . "' alt='profile picture' class='img_profile_xs' /></td>\n";                                                                                                
+                                        } else {
+                                            echo "<td style='border-bottom-width: 1px;'><img src='images/profile_images/profile_blank.jpg' alt='profile picture' class='img_profile_xs' /></td>\n";                                                                                                
+                                        }
+                                        echo "<td style='border-bottom-width: 1px;'><a id='notification_links' href='profile.php?id=" . $user->id . "'>" . $user->username . "</a> wants to be friends with you</td>\n";
+                                        echo "<td style='border-bottom-width: 1px;'><a class='submit btn btn-success btn-xs' href='php/accept_friend.php?id=" . $user->id . "'>accept</a> <a class='submit btn btn-danger btn-xs' href='php/decline_friend.php?id=" . $user->id . "'>decline</a></td>\n";
+                                        echo "</tr>\n";
+                                    }
+                                }                    
+                            }
+                        } else {
+                            echo "<p style='text-align: center;'>you don't have new friend requests</p>\n";
+                        }
+                        ?> 
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </body>

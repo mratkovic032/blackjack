@@ -107,29 +107,24 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="user_list.php">user list</a></li>
-                        <li class="dropdown">
-                            <?php 
-                            require_once 'php/database_connection.php';
-                            $prep_user = $db->prepare("SELECT notification FROM user_list WHERE username = ?;");
-                            $prep_user->execute([$_SESSION['username']]);
-                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
-                            
-                            if ($res_user[0]->notification > 0) {
-                                ?>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span>&nbsp;&nbsp; <sup style="color: #f00; font-size: 100%;"><?php echo $res_user[0]->notification ?></sup></a>                            
-                            <?php
-                            } else {
-                                ?>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span></a>                            
-                            <?php
-                            }
+                        <li><a href="user_list.php">user list</a></li>                       
+                        <?php 
+                        require_once 'php/database_connection.php';
+                        $prep_user = $db->prepare("SELECT notification FROM user_list WHERE username = ?;");
+                        $prep_user->execute([$_SESSION['username']]);
+                        $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
+
+                        if ($res_user[0]->notification > 0) {
                             ?>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="profile.php">your profile</a></li>
-                                <li><a href="notification.php">notifications</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="notification.php">friend requests &nbsp;&nbsp;<sup style="color: #f00; font-size: 100%;"><?php echo $res_user[0]->notification ?></sup></a></li>                            
+                        <?php
+                        } else {
+                            ?>
+                        <li><a href="notification.php">friend requests</a></li>                            
+                        <?php
+                        }
+                        ?>                        
+                        <li><a href="profile.php"><?php echo $_SESSION['username']; ?></a></li> 
                         <li><a href="php/logout.php">log out</a></li>
                     </ul>
                 </div>                

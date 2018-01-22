@@ -64,9 +64,15 @@ body {
     margin: auto;
     text-align: left;
 }
-.additional_options a {
+.additional_options a,
+p a,
+#notification_links {
     color: #ad0000;
     transition: all 0.3s;
+}
+p a:hover,
+#notification_links:hover {
+    text-decoration: underline;
 }
 span.warning {
     color: #ad0000;    
@@ -115,16 +121,9 @@ span.warning {
 #profile_img_holder img:hover {
     border-color: #ac2925;
 }
-.img_prifile_xs {
+.img_profile_xs {
     width: 35px;
-    height: 35px;
-}
-p a {
-    color: #ad0000;
-    transition: all 0.3s;   
-}
-p a:hover {
-    color: #ad0000;
+    height: 35px;    
 }
 .friend_list_divs div:nth-child(1) {
     padding-left: 0px !important;
