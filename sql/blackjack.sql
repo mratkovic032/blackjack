@@ -3,22 +3,25 @@ CREATE TABLE user_list (
     username VARCHAR(100) NOT NULL,
     pass VARCHAR(50) NOT NULL,
     credit INT NOT NULL,
-    gender ENUM('Male', 'Female') NOT NULL,
+    gender ENUM('male', 'female') NOT NULL,
     birthday DATE NOT NULL,
     country VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     picture_path VARCHAR(255) NULL,
+    notification INT NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE friend_list (
+CREATE TABLE relationship (
     id INT NOT NULL AUTO_INCREMENT,
     id_user_1 INT NOT NULL,
     id_user_2 INT NOT NULL,
-    friends INT NOT NULL DEFAULT 0,
+    status INT NOT NULL DEFAULT 0,
+    id_action_user INT NOT NULL,
     PRIMARY KEY (id, id_user_1, id_user_2),
     CONSTRAINT fk_friend_list_user_1 FOREIGN KEY (id_user_1) REFERENCES user_list (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_friend_list_user_2 FOREIGN KEY (id_user_2) REFERENCES user_list (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_friend_list_user_2 FOREIGN KEY (id_user_2) REFERENCES user_list (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    UNIQUE INDEX (id_user_1, id_user_2)
 );
 
 CREATE TABLE table_live (

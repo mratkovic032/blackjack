@@ -103,15 +103,31 @@ if (!isset($_SESSION['username'])) {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>                    
-                    <a class="navbar-brand" id="big-logo-brand" href="#myPage"><img class="img-responsive" id="logo_pic" src="images/blackjack/2.png" alt="Logo" /></a>                      
+                    <a class="navbar-brand" id="big-logo-brand" href="index.php"><img class="img-responsive" id="logo_pic" src="images/blackjack/2.png" alt="Logo" /></a>                      
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="user_list.php">user list</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?> <span class="caret"></span></a>
+                            <?php 
+                            require_once 'php/database_connection.php';
+                            $prep_user = $db->prepare("SELECT notification FROM user_list WHERE username = ?;");
+                            $prep_user->execute([$_SESSION['username']]);
+                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
+                            
+                            if ($res_user[0]->notification > 0) {
+                                ?>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span>&nbsp;&nbsp; <sup style="color: #f00; font-size: 100%;"><?php echo $res_user[0]->notification ?></sup></a>                            
+                            <?php
+                            } else {
+                                ?>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><?php echo $_SESSION['username']; ?>  <span class="caret"></span></a>                            
+                            <?php
+                            }
+                            ?>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="profile.php">your profile</a></li>
+                                <li><a href="notification.php">notifications</a></li>
                             </ul>
                         </li>
                         <li><a href="php/logout.php">log out</a></li>
@@ -121,20 +137,24 @@ if (!isset($_SESSION['username'])) {
         </nav>
         <div class="wrapper">
             <div class="container">
-                <div class="row login">
+                <div class="row">
                     <div class="page-header text-center">
                         <h1 onclick="window.open('index.php', '_self');">BLACKJACK</h1>
                     </div>                    
-                        <div class="col-md-4 col-md-offset-4 text-center">                            
-                            <button class="play btn btn-block" >PLAY</button>
-                            <?php
-                            if (isset($_GET["msg"]) && $_GET["msg"] == 'success') {
-                                echo "<div id='success_div'>\n";
-                                echo "you have successfully logged in\n";
-                                echo "</div>\n";
-                            }
-                            ?>                                                      
-                        </div>                    
+                </div>
+                <div class="row login" style="margin-top: 50px;">
+                    <div class="col-md-2 col-md-offset-5 text-center">                            
+                        <button class="play btn btn-block" >PLAY</button>
+                    </div>
+                    <div class="col-md-12">
+                    <?php
+                    if (isset($_GET["msg"]) && $_GET["msg"] == 'success') {
+                        echo "<div id='success_div'>\n";
+                        echo "you have successfully logged in\n";
+                        echo "</div>\n";
+                    }
+                    ?>                                                      
+                    </div>
                 </div>
             </div>
         </div>

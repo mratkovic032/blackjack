@@ -19,8 +19,9 @@ body {
     z-index: -1;
     background-image: url("../images/table/2.jpg");
     background-size: cover;
-    background-repeat: no-repeat;    
-    filter: grayscale(65%);
+    background-repeat: no-repeat;
+    background-position: top center;
+    filter: grayscale(80%);
 }
 #logo_pic {
     width: 50px;
@@ -86,15 +87,14 @@ span.warning {
     font-size: 55px;
     cursor: pointer;
 }
-.play {
-    margin-top: 20%;
+.play {    
     background-color: transparent;
     color: #bbb;
     border: 2px solid #bbb;
     transition: all 0.5s;    
 }
 .navbar {
-    background-color: rgba(190,0,0,0.3);
+    background-color: rgba(80,0,0,0.8);
     transition: 0.5s;
 }
 .dropdown-menu li {
@@ -116,6 +116,16 @@ span.warning {
     border-color: #ac2925;
 }
 .img_prifile_xs {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
+}
+p a {
+    color: #ad0000;
+    transition: all 0.3s;   
+}
+p a:hover {
+    color: #ad0000;
+}
+.friend_list_divs div:nth-child(1) {
+    padding-left: 0px !important;
 }

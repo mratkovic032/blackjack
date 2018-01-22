@@ -304,8 +304,8 @@ if (!isset($_SESSION['username'])) {
                                 <br />
                                 <select name="gender" class="form-control login_inputs">
                                     <option>gender</option>
-                                    <option value="Male">male</option>
-                                    <option value="Female">female</option>
+                                    <option value="male">male</option>
+                                    <option value="female">female</option>
                                 </select><br /><br />
                                 <button class="login_button btn btn-block" type="submit" name="submit">sign up</button>
                                 <br />
