@@ -1,8 +1,10 @@
 var cards = [];
 var card_1;
 var card_2;
-var card_container = $('#ovajdiv');
+
 $(document).ready(function() {
+    
+    
     var cards = [
         {cardName: 'clubsA', cardPoints: 0, type: "ace"},
         {cardName: 'clubs2', cardPoints: 2, type: "two"},
@@ -89,11 +91,7 @@ function deal_cards() {
        card_1: card_1,
        card_2: card_2
     };
-    
-    function show_cards(cards) {
-        console.log(cards);
         
-    }
     
     $.ajax({
         type: "POST",
@@ -102,20 +100,14 @@ function deal_cards() {
         success: function(data) {
             console.log(data);
         }
-    }).then(function() {
-        $.ajax({
-            type: "GET",
-            url: "php/check_cards.php",
-            success: function(data) {
-                var data = JSON.parse(data);                
-                show_cards(data);
-            }
-        });
-    });
+    });           
 }
+
+$('#player_div').load("php/init.php");
 
 setTimeout(function(){
   $('.modal').modal('hide')
 }, 3000);
 });
+
 

@@ -87,36 +87,8 @@ session_start();
                         </div>                        
                     </div>
                 </div>
-                <div class="row">
-                    <?php
-                    $prep_users = $db->prepare("SELECT * FROM game_users WHERE game_users.id_game IN (SELECT game_users.id_game FROM game_users WHERE id_user = ?) ORDER BY id ASC;");
-                    $prep_users->execute([$_SESSION['id']]);
-                    $res_users = $prep_users->fetchAll(PDO::FETCH_OBJ);
-    //                print_r($res_playerss);
-                    
-                    foreach ($res_users as $user) {
-                        $prep_user_info = $db->prepare("SELECT user_list.username, user_list.picture_path, user_list.credit FROM user_list WHERE id = ?;");
-                        $prep_user_info->execute([$user->id_user]);
-                        $res_user_info = $prep_user_info->fetchAll(PDO::FETCH_OBJ);
-                        
-                        echo "<div class='col-md-4'>";
-                            echo "<div class='col-md-12 text-center'>";
-                                echo "<div>";
-                                    if ($res_user_info[0]->picture_path != null) {
-                                        echo "<img class='img_profile_md' src='" . $res_user_info[0]->picture_path . "' alt='profile picture' /><br />\n";
-                                    } else {
-                                        echo "<img class='img_profile_md' src='images/profile_images/profile_blank.jpg' alt='profile picture' /><br />\n";
-                                    }
-                                    echo "<span class='money' style='color: #ff0000;'>" . $res_user_info[0]->username . "</span>";
-                                    echo " / <span class='money' style='color: #ff0000;'>" . number_format($res_user_info[0]->credit) . " $</span>\n";
-                                    
-                                echo "</div>";
-                            echo "</div>";
-                            echo "<div id='card_container' class='col-md-12 text-center'>";                                         
-                            echo "</div>";
-                        echo "</div>";
-                    }
-                    ?>                    
+                <div class="row" id="player_div">
+                                       
                 </div>
                 <div class="col-md-12" style="margin-top: 20px;">                    
                     <div class="text-center">                                                                                    
@@ -132,7 +104,6 @@ session_start();
                         <button id="hit" class="btn btn-default">hit</button>
                         <button id="stand" class="btn btn-default">stand</button>
                     </div>
-                    <div id="ovajdiv"></div>
                 </div>
             </div>
         </div>
