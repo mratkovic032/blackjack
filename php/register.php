@@ -20,8 +20,8 @@ if (isset($_POST['submit'])) {
         if ($prep->rowCount() > 0) {
             die (header('Location: ../signup.php?msg=user'));
         } else {
-            $prep = $db->prepare('INSERT INTO user_list (username, pass, credit, gender, birthday, country, email) VALUES (?, ?, ?, ?, ?, ?, ?);');
-            $prep->execute([$username, $password, $credit, $gender, $birthday, $country, $email]);
+            $prep = $db->prepare('INSERT INTO user_list (username, pass, credit, bet, gender, birthday, country, email, points) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);');
+            $prep->execute([$username, $password, $credit, 0, $gender, $birthday, $country, $email, null]);
             die (header('Location: ../index.php?msg=success_registration'));
         }
     }

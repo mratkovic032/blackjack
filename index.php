@@ -1,7 +1,3 @@
-<?php 
-session_start();
-if (!isset($_SESSION['username'])) {
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,6 +19,10 @@ if (!isset($_SESSION['username'])) {
         </script>
     </head>
     <body>
+    <?php 
+    session_start();
+    if (!isset($_SESSION['username'])) {
+    ?>
         <div class="wrapper">
             <div class="container">
                 <div class="row login">
@@ -53,9 +53,7 @@ if (!isset($_SESSION['username'])) {
                                 echo "<div id='success_div'>\n";
                                 echo "you have successfully logged out\n";
                                 echo "</div>\n";
-                            }
-                            ?>
-                            <?php
+                            }                            
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'success_registration') {
                                 echo "<div id='success_div'>\n";
                                 echo "you have registered successfully\n";
@@ -67,35 +65,11 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
         </div>
-    </body>
-</html>
-<?php
-    exit;
-}
-?>
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Blackjack</title>        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">                               
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link href="components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> 
-        <script src="components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>                     
-        <link href="css/main.css" rel="stylesheet" type="text/css"/>
-        <link href="css/signup.css" rel="stylesheet" type="text/css"/>
-        <link rel="shortcut icon" href="images/blackjack/5.png">
-        <script>
-            $(document).ready(function() {
-                $('#success_div').delay(2000).fadeOut();                         
-            });
-        </script>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <?php
+            exit;
+        }
+        ?>
+         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -139,7 +113,7 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div class="row login" style="margin-top: 50px;">
                     <div class="col-md-2 col-md-offset-5 text-center">                            
-                        <button class="play btn btn-block" >PLAY</button>
+                        <a href="php/new_game.php" class="play btn btn-block" >PLAY</a>
                     </div>
                     <div class="col-md-12">
                     <?php
@@ -154,4 +128,4 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
     </body>
-</html>     
+</html>

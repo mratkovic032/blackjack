@@ -4,7 +4,7 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: 'Vollkorn SC', serif;
-    color: #bbb;
+    color: #ddd;
 }
 .wrapper {
     margin-top: 60px;
@@ -125,6 +125,53 @@ span.warning {
     width: 35px;
     height: 35px;    
 }
+.img_profile_md {
+    width: 50px;
+    height: 50px;
+}
 .friend_list_divs div:nth-child(1) {
     padding-left: 0px !important;
+}
+.chips {
+    width: 75px;
+    height: 75px;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: all 0.2s;
+}
+.chips:hover {
+    transform: scale(1.1);
+}
+textarea {
+    resize: none;
+    padding: 2px 10px 2px 10px !important;
+    background-color: rgba(0,0,0,0.3);
+    color: #ad0000;
+    width: 60%;
+    margin: auto;
+    border: 1px solid #ad0000;
+    transition: all 0.5s;
+}
+textarea:focus {
+    border: 1px solid #ad0000 !important;
+}
+.outer {
+    margin: auto;
+    height: 200px;
+    width: 60%;
+    overflow: hidden;
+}
+#chatbox_output {
+    margin: auto;
+    height: 200px;
+    width: 109%;    
+    overflow-y: scroll;
+    padding: 5px 20px 0 8px;
+    text-align: left;
+}
+#play_buttons {
+    
+}
+.money {
+    font-size: 17px;
 }

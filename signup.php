@@ -30,9 +30,7 @@ if (!isset($_SESSION['username'])) {
                                     echo "<div class='warning_div_sign_up'>\n";
                                     echo "<span class='warning'>passwords do not match</span>\n";
                                     echo "</div>\n";
-                                }
-                                ?>
-                                <?php
+                                }                                
                                 if (isset($_GET["msg"]) && $_GET["msg"] == 'user') {
                                     echo "<div class='warning_div_sign_up'>\n";
                                     echo "<span class='warning'>that username is already taken, please select different username</span>\n";

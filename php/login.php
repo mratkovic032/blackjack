@@ -13,6 +13,7 @@ if ($prep->rowCount() > 0) {
     $res = $prep->fetchAll(PDO::FETCH_OBJ);
     $_SESSION['username'] = $username;
     $_SESSION['id'] = $res[0]->id;
+    $_SESSION['credit'] = $res[0]->credit;   
     
     die (header('Location: ../index.php?msg=success'));
 } else {
