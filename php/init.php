@@ -34,27 +34,27 @@ if ($prep_players->rowCount() > 0) {
                 <?php foreach ($res_player_cards as $card) {
                     if ($card->card_1 != null) {
                         ?>
-                        <img src="images/cards/<?php echo $card->card_1 ?>.png" />                
+                        <img src="images/cards/<?php echo $card->card_1 ?>.png" alt="card" />                
                     <?php    
                     }
                     if ($card->card_2 != null) {
                      ?>
-                        <img src="images/cards/<?php echo $card->card_2 ?>.png" />                     
+                        <img src="images/cards/<?php echo $card->card_2 ?>.png" alt="card" />                     
                     <?php         
                     }
                     if ($card->card_3 != null) {
                         ?>
-                        <img src="images/cards/<?php echo $card->card_3 ?>.png" />                
+                        <img src="images/cards/<?php echo $card->card_3 ?>.png" alt="card" />                
                     <?php    
                     }
                     if ($card->card_4 != null) {
                         ?>
-                        <img src="images/cards/<?php echo $card->card_4 ?>.png" />                
+                        <img src="images/cards/<?php echo $card->card_4 ?>.png" alt="card" />                
                     <?php    
                     }
                     if ($card->card_5 != null) {
                         ?>
-                        <img src="images/cards/<?php echo $card->card_5 ?>.png" />                
+                        <img src="images/cards/<?php echo $card->card_5 ?>.png" alt="card" />                
                     <?php    
                     }
                     ?>

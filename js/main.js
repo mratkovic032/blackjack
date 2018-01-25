@@ -64,50 +64,62 @@ $(document).ready(function() {
     
     
     
-//mesanje karata
-function shuffle() {
-    var i, j, x;
-    for (i = cards.length -1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));        
-        x = cards[i];
-        cards[i] = cards[j];
-        cards[j] = x;
-    }
-    console.log(cards);
-}
-
-//podela karata
-function deal_cards() {
-    shuffle();
-    
-    var x = Math.floor(Math.random() * cards.length);
-    var card_1 = cards.splice(x, 1);
-    console.log(card_1);
-    var y = Math.floor(Math.random() * cards.length);
-    var card_2 = cards.splice(y, 1);
-    console.log(card_2);
-    
-    var player_cards = {
-       card_1: card_1,
-       card_2: card_2
-    };
-        
-    
-    $.ajax({
-        type: "POST",
-        url: "php/insert_cards.php",
-        data: player_cards,
-        success: function(data) {
-            console.log(data);
+    //mesanje karata
+    function shuffle() {
+        var i, j, x;
+        for (i = cards.length -1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));        
+            x = cards[i];
+            cards[i] = cards[j];
+            cards[j] = x;
         }
-    });           
+        console.log(cards);
+    }
+
+    //podela karata
+    function deal_cards() {
+        shuffle();
+
+        var x = Math.floor(Math.random() * cards.length);
+        var card_1 = cards.splice(x, 1);
+        console.log(card_1);
+        var y = Math.floor(Math.random() * cards.length);
+        var card_2 = cards.splice(y, 1);
+        console.log(card_2);
+        var z = Math.floor(Math.random() * cards.length);
+        var card_1_dealer = cards.splice(z, 1);
+        console.log(card_1_dealer);
+        var k = Math.floor(Math.random() * cards.length);
+        var card_2_dealer = cards.splice(k, 1);
+        console.log(card_2_dealer);
+
+        var player_cards = {
+           card_1_dealer: card_1_dealer,
+           card_2_dealer: card_2_dealer,
+           card_1: card_1,
+           card_2: card_2
+        };                
+        console.log(player_cards);
+        $.ajax({
+            type: "POST",
+            url: "php/insert_cards.php",
+            data: player_cards,
+            success: function(data) {
+                console.log(data);
+            }
+        });           
 }
+    $('#dealer_div').load("php/load_dealer.php");
+    setInterval(function() {        
+        $('#player_div').load("php/init.php");                
+    }, 1700);
+    
+    $('#player_div').load("php/init.php");               
 
-$('#player_div').load("php/init.php");
+    setTimeout(function(){
+      $('.modal').modal('hide')
+    }, 3000);
 
-setTimeout(function(){
-  $('.modal').modal('hide')
-}, 3000);
 });
 
 

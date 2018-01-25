@@ -70,9 +70,7 @@ session_start();
                         <div style='text-align: center;'>
                             <label style='margin: auto;'>dealer</label>
                         </div>
-                        <div class="text-center">
-                            <img src="images/cards/clubs6.png" alt=""/>
-                            <img src="images/cards/clubsA.png" alt=""/>
+                        <div class="text-center" id="dealer_div">                            
                         </div>
                     </div>
                     <div class="col-md-4 text-center">

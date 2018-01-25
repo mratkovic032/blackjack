@@ -112,7 +112,7 @@
                     </div>                    
                 </div>
                 <div class="row login" style="margin-top: 50px;">
-                    <div class="col-md-2 col-md-offset-5 text-center">                            
+                    <div class="col-md-2 col-md-offset-5 col-sm-2 col-sm-offset-5 text-center">                            
                         <a href="php/new_game.php" class="play btn btn-block" >PLAY</a>
                     </div>
                     <div class="col-md-12">
